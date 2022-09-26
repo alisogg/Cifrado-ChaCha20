@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "sodium.h"
+#include "sodium.h" //Importar libreria libsodium
 
 /*int crypto_stream_chacha20_xor(unsigned char* c, const unsigned char* m,
     unsigned long long mlen, const unsigned char* n,
@@ -11,7 +11,7 @@ int main(void) {
     unsigned char* c; //Texto cifrado (c) es la combinacion del mensaje (m) con la salida del cifrado de flujo, utilizando un XOR
     c = (unsigned char*)malloc(crypto_stream_chacha20_NONCEBYTES); //NONCEBYTES regresa el numero aleatorio en bytes
 
-    unsigned char m[] = "Hola Mundo!"; //Mensaje que quiero decifrar
+    unsigned char m[] = "Hola Mundo!"; //Mensaje que quiero cifrar
     int mlen = 50; //50 es la cantidad maxima de caracteres que puede tener mi mensaje
 
     unsigned char* n; //n es NONCE un numero que se puede utilizar solamente una vez
@@ -25,13 +25,13 @@ int main(void) {
 
     printf("Cifrado: "); //Muestra el texto encriptado
     crypto_stream_chacha20_xor(c, m, mlen, n, k); //Encripta un mensaje (m) utilizando tamaño mlen, un nonce y una k (llave secreta) 
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 12; i++) { //i tiene que ser menor a 12, ya que es el tamaño de nuestro mensaje a encriptar
         printf("%x", c[i]);
     }
 
     printf("\nOriginal: "); //Muestra el texto original
     crypto_stream_chacha20_xor(c, m, mlen, n, k); //Encripta un mensaje (m) utilizando tamaño mlen, un nonce y una k (llave secreta)
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 12; i++) {  //i tiene que ser menor a 12, ya que es el tamaño de nuestro mensaje a encriptar
         printf("%c", m[i]);
     }
     printf("\n");
